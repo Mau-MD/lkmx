@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/client/components/ui/button";
 import {
   Table,
@@ -9,7 +11,16 @@ import {
   TableRow,
 } from "@/client/components/ui/table";
 import { UserOutput } from "@/shared/types";
+import { deleteUser } from "@/client/handlers/userapi";
+
 export const UserTable = ({ users }: { users: UserOutput[] }) => {
+  const handleDelete = async (id: number) => {
+    const [, error] = await deleteUser(id.toString());
+    if (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Table>
       <TableCaption>A list of users</TableCaption>
@@ -31,7 +42,12 @@ export const UserTable = ({ users }: { users: UserOutput[] }) => {
             <TableCell>{user.email}</TableCell>
             <TableCell className="flex gap-2 justify-end">
               <Button variant="outline">Edit</Button>
-              <Button variant="destructive">Delete</Button>
+              <Button
+                variant="destructive"
+                onClick={() => handleDelete(user.id)}
+              >
+                Delete
+              </Button>
             </TableCell>
           </TableRow>
         ))}
