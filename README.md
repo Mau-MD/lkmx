@@ -65,7 +65,8 @@ Infrastructure:
 - 45 minutes: Fixing weird Next.js Dockerfile issue where fetch was not working inside the contianer
 - 45 minutes: Infrastructure
 - 30 minutes: Annoying Cloud Run Client API issue :/
+- 15 minutes: Cleaning up and local testing
 
-Total time: 3:30 hours
+Total time: 3:45 hours
 
 
