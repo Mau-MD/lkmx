@@ -12,8 +12,13 @@ export const DELETE = async (request: NextRequest, { params }: { params: Promise
         return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
     }
 
-    await UserService.deleteUser(idNumber);
-    return NextResponse.json({ message: "User deleted" }, { status: 200 });
+    try {
+        await UserService.deleteUser(idNumber);
+        return NextResponse.json({ message: "User deleted" }, { status: 200 });
+    } catch (error) {
+        console.error(error)
+        return NextResponse.json({ error: "Failed to delete user" }, { status: 500 })
+    }
 }
 
 export const PUT = async (request: NextRequest, { params }: { params: Promise<{id: string}> }) => {
@@ -32,6 +37,11 @@ export const PUT = async (request: NextRequest, { params }: { params: Promise<{i
         return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
     }
 
-    await UserService.updateUser(idNumber, body);
-    return NextResponse.json({ message: "User updated" }, { status: 200 });
+    try {
+        await UserService.updateUser(idNumber, body);
+        return NextResponse.json({ message: "User updated" }, { status: 200 });
+    } catch (error) {
+        console.error(error)
+        return NextResponse.json({ error: "Failed to update user" }, { status: 500 })
+    }
 }

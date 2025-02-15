@@ -7,10 +7,12 @@ export async function withErrorHandling<T>(
   try {
     const result = await fn();
     return [result, null];
-    } catch (error) {
-      if (error instanceof Error) {
-        return [null, error.message];
-      }
-      return [null, "An unknown error occurred"];
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      console.error(error.message);
+      return [null, error.message];
     }
+    return [null, "An unknown error occurred"];
+  }
 }
