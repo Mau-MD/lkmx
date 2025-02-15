@@ -34,11 +34,14 @@ export const UserForm = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await createUser({
+    const [, error] = await createUser({
       name: values.name,
       age: values.age,
       email: values.email,
     });
+    if (error) {
+      console.error(error);
+    }
     form.reset();
   }
 

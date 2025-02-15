@@ -3,7 +3,11 @@ import { UserTable } from "@/client/components/user/user-table";
 import { getUsers } from "@/client/handlers/userapi";
 
 export default async function Home() {
-  const users = await getUsers();
+  const [users, error] = await getUsers();
+
+  if (!users) {
+    return <div>Error loading users: {error}</div>;
+  }
 
   return (
     <div className="container mx-auto p-4">
