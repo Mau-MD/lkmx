@@ -20,6 +20,10 @@ export class UserService {
         }))
     }
 
+    static async deleteUser(id: number): Promise<void> {
+        await UserModel.deleteUser(id)
+    }
+
     static async getUserAnalytics(): Promise<UserAnalytics> {
         return await UserModel.getUserAnalytics()
     }

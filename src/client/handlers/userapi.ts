@@ -17,3 +17,11 @@ export async function createUser(user: UserInput): Promise<Result<void>> {
     });
   });
 }
+
+export async function deleteUser(id: string): Promise<Result<void>> {
+  return await withErrorHandling(async () => {
+    await fetch(`${SERVER_URL}/api/users/${id}`, {
+      method: "DELETE",
+    });
+  });
+}

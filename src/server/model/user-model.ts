@@ -1,7 +1,7 @@
 import { UserAnalytics } from "@/shared/types";
 import db from "../db";
 import { usersTable } from "../db/schema";
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 export class UserModel {
 
@@ -11,6 +11,10 @@ export class UserModel {
 
     static async getAllUsers(): Promise<typeof usersTable.$inferSelect[]> {
         return await db.select().from(usersTable)
+    }
+
+    static async deleteUser(id: number): Promise<void> {
+        await db.delete(usersTable).where(eq(usersTable.id, id))
     }
 
     static async getUserAnalytics(): Promise<UserAnalytics> {
