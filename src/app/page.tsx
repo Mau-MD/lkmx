@@ -1,13 +1,4 @@
-import { Button } from "@/client/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/client/components/ui/table";
+import { UserTable } from "@/client/components/user/user-table";
 import { SERVER_URL } from "@/shared/config";
 import { UserOutput } from "@/shared/types";
 
@@ -23,32 +14,7 @@ export default async function Home() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold">User Management System</h1>
-      <Table>
-        <TableCaption>A list of users</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">Id</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Age</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {users.map((user) => (
-            <TableRow key={user.id}>
-              <TableCell className="font-medium">{user.id}</TableCell>
-              <TableCell>{user.name}</TableCell>
-              <TableCell>{user.age}</TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell className="flex gap-2 justify-end">
-                <Button variant="outline">Edit</Button>
-                <Button variant="destructive">Delete</Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <UserTable users={users} />
     </div>
   );
 }
