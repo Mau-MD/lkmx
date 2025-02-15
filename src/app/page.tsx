@@ -2,6 +2,8 @@ import { Toaster } from "@/client/components/ui/toaster";
 import { UserMain } from "@/client/components/user/user-main";
 import { getUserAnalytics, getUsers } from "@/client/handlers/userapi";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const [users, usersError] = await getUsers();
   const [analytics, analyticsError] = await getUserAnalytics();
