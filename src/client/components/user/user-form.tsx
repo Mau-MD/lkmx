@@ -8,33 +8,21 @@ import {
   FormLabel,
   FormMessage,
 } from "@/client/components/ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { UseFormReturn } from "react-hook-form";
 
 import { z } from "zod";
 import { Input } from "@/client/components/ui/input";
 import { Button } from "@/client/components/ui/button";
 import { createUser } from "@/client/handlers/userapi";
 import { useToast } from "@/client/hooks/use-toast";
+import { formSchema } from "./user-main";
 
-// TODO: Move to shared client and server schema
-const formSchema = z.object({
-  name: z.string().min(2).max(50),
-  age: z.coerce.number().min(1).max(100),
-  email: z.string().email("Invalid email address"),
-});
-
-export const UserForm = () => {
+export const UserForm = ({
+  form,
+}: {
+  form: UseFormReturn<z.infer<typeof formSchema>>;
+}) => {
   const { toast } = useToast();
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      age: 0,
-      email: "",
-    },
-  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const [, error] = await createUser({
