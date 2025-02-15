@@ -14,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/client/components/ui/input";
 import { Button } from "@/client/components/ui/button";
+import { createUser } from "@/client/handlers/userapi";
 
 // TODO: Move to shared client and server schema
 const formSchema = z.object({
@@ -32,8 +33,13 @@ export const UserForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values); // TODO: Call API
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await createUser({
+      name: values.name,
+      age: values.age,
+      email: values.email,
+    });
+    form.reset();
   }
 
   return (

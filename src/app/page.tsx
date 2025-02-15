@@ -1,13 +1,6 @@
 import { UserForm } from "@/client/components/user/user-form";
 import { UserTable } from "@/client/components/user/user-table";
-import { SERVER_URL } from "@/shared/config";
-import { UserOutput } from "@/shared/types";
-
-async function getUsers() {
-  const res = await fetch(`${SERVER_URL}/api/users`);
-  const data = (await res.json()) as UserOutput[];
-  return data;
-}
+import { getUsers } from "@/client/handlers/userapi";
 
 export default async function Home() {
   const users = await getUsers();
