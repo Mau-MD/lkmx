@@ -25,7 +25,10 @@ export async function createUser(user: UserInput): Promise<Result<void>> {
   });
 }
 
-export async function updateUser(userId: number, user: UserInput): Promise<Result<void>> {
+export async function updateUser(
+  userId: number,
+  user: UserInput
+): Promise<Result<void>> {
   return await withErrorHandling(async () => {
     await fetch(`${SERVER_URL}/api/users/${userId}`, {
       method: "PUT",
