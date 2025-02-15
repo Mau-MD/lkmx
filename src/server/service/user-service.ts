@@ -1,4 +1,4 @@
-import { UserInput, UserOutput } from "@/shared/types";
+import { UserAnalytics, UserInput, UserOutput } from "@/shared/types";
 import { UserModel } from "../model/user-model";
 
 export class UserService {
@@ -19,4 +19,9 @@ export class UserService {
             email: user.email
         }))
     }
+
+    static async getUserAnalytics(): Promise<UserAnalytics> {
+        return await UserModel.getUserAnalytics()
+    }
+
 }

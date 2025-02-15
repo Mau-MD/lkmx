@@ -10,3 +10,8 @@ export type UserOutput = {
     age: number;
     email: string;
 }
+
+export type UserAnalytics = {
+    averageAge: number;
+    totalUsers: number;
+}
