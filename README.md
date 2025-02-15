@@ -6,8 +6,9 @@
 [https://lkmx-service-574820729926.us-central1.run.app](https://lkmx-service-574820729926.us-central1.run.app)
 
 ## Local Build
- 1. Clone the repository `git clone https://github.com/Mau-MD/lkmx
- 2. Run `deploy/start.sh` to start the services
+ 1. Clone the repository `git clone https://github.com/Mau-MD/lkmx`
+ 2. Rename the `.env.example` file to `.env` and set the environment variables
+ 3. Run `deploy/start.sh` to start the services
 
  ## Deploy to GCP
  1. Create a new project in GCP
