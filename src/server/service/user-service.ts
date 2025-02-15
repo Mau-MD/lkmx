@@ -20,6 +20,14 @@ export class UserService {
         }))
     }
 
+    static async updateUser(id: number, user: UserInput): Promise<void> {
+        await UserModel.updateUser(id, {
+            name: user.name,
+            age: user.age,
+            email: user.email
+        })
+    }
+
     static async deleteUser(id: number): Promise<void> {
         await UserModel.deleteUser(id)
     }

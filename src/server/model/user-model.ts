@@ -17,6 +17,10 @@ export class UserModel {
         await db.delete(usersTable).where(eq(usersTable.id, id))
     }
 
+    static async updateUser(id: number, user: typeof usersTable.$inferInsert): Promise<void> {
+        await db.update(usersTable).set(user).where(eq(usersTable.id, id))
+    }
+
     static async getUserAnalytics(): Promise<UserAnalytics> {
         const result = await db.select({
             averageAge: sql<number>`AVG(${usersTable.age})`,
