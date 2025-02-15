@@ -14,7 +14,13 @@ import { UserOutput } from "@/shared/types";
 import { deleteUser } from "@/client/handlers/userapi";
 import { useToast } from "@/client/hooks/use-toast";
 
-export const UserTable = ({ users }: { users: UserOutput[] }) => {
+export const UserTable = ({
+  users,
+  handleEdit,
+}: {
+  users: UserOutput[];
+  handleEdit: (user: UserOutput) => void;
+}) => {
   const { toast } = useToast();
 
   const handleDelete = async (id: number) => {
@@ -56,7 +62,9 @@ export const UserTable = ({ users }: { users: UserOutput[] }) => {
             <TableCell>{user.age}</TableCell>
             <TableCell>{user.email}</TableCell>
             <TableCell className="flex gap-2 justify-end">
-              <Button variant="outline">Edit</Button>
+              <Button variant="outline" onClick={() => handleEdit(user)}>
+                Edit
+              </Button>
               <Button
                 variant="destructive"
                 onClick={() => handleDelete(user.id)}

@@ -7,6 +7,7 @@ import { UserTable } from "./user-table";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 // TODO: Move to shared client and server schema
 export const formSchema = z.object({
@@ -22,6 +23,9 @@ export const UserMain = ({
   analytics: UserAnalyticsType;
   users: UserOutput[];
 }) => {
+  // If we are editing a user, we need to store the user id
+  const [isEditing, setIsEditing] = useState<number | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,15 +35,26 @@ export const UserMain = ({
     },
   });
 
+  const handleEdit = (user: UserOutput) => {
+    setIsEditing(user.id);
+    form.setValue("name", user.name);
+    form.setValue("age", user.age);
+    form.setValue("email", user.email);
+  };
+
   return (
     <>
       <div className="my-4 p-4 border rounded-md">
         <UserAnalytics analytics={analytics} />
       </div>
       <div className="my-4 p-4 border rounded-md">
-        <UserForm form={form} />
+        <UserForm
+          form={form}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+        />
       </div>
-      <UserTable users={users} />
+      <UserTable users={users} handleEdit={handleEdit} />
     </>
   );
 };

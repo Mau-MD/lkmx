@@ -13,23 +13,35 @@ import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { Input } from "@/client/components/ui/input";
 import { Button } from "@/client/components/ui/button";
-import { createUser } from "@/client/handlers/userapi";
+import { createUser, updateUser } from "@/client/handlers/userapi";
 import { useToast } from "@/client/hooks/use-toast";
 import { formSchema } from "./user-main";
 
 export const UserForm = ({
   form,
+  isEditing,
+  setIsEditing,
 }: {
   form: UseFormReturn<z.infer<typeof formSchema>>;
+  isEditing: number | null;
+  setIsEditing: (isEditing: number | null) => void;
 }) => {
   const { toast } = useToast();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const [, error] = await createUser({
-      name: values.name,
-      age: values.age,
-      email: values.email,
-    });
+    let error: string | null = null;
+
+    if (isEditing !== null) {
+      [, error] = await updateUser(isEditing, values);
+      setIsEditing(null);
+    } else {
+      [, error] = await createUser({
+        name: values.name,
+        age: values.age,
+        email: values.email,
+      });
+    }
+
     if (error) {
       toast({
         title: "Error creating user",
@@ -39,12 +51,18 @@ export const UserForm = ({
       console.error(error);
       return;
     }
+
     form.reset();
     toast({
       title: "User created",
       description:
         "User created successfully. Please refresh the page to see the new user.",
     });
+  }
+
+  function handleCancel() {
+    form.reset();
+    setIsEditing(null);
   }
 
   return (
@@ -99,7 +117,14 @@ export const UserForm = ({
             )}
           />
         </div>
-        <Button type="submit">Submit</Button>
+        <div className="flex gap-2">
+          {isEditing !== null && (
+            <Button variant="outline" onClick={handleCancel}>
+              Cancel
+            </Button>
+          )}
+          <Button type="submit">{isEditing ? "Update" : "Submit"}</Button>
+        </div>
       </form>
     </Form>
   );
