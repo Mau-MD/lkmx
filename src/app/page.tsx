@@ -1,7 +1,5 @@
 import { Toaster } from "@/client/components/ui/toaster";
-import { UserAnalytics } from "@/client/components/user/user-analytics";
-import { UserForm } from "@/client/components/user/user-form";
-import { UserTable } from "@/client/components/user/user-table";
+import { UserMain } from "@/client/components/user/user-main";
 import { getUserAnalytics, getUsers } from "@/client/handlers/userapi";
 
 export default async function Home() {
@@ -19,13 +17,7 @@ export default async function Home() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold">User Management System</h1>
-      <div className="my-4 p-4 border rounded-md">
-        <UserAnalytics analytics={analytics} />
-      </div>
-      <div className="my-4 p-4 border rounded-md">
-        <UserForm />
-      </div>
-      <UserTable users={users} />
+      <UserMain analytics={analytics} users={users} />
       <Toaster />
     </div>
   );
