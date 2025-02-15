@@ -57,6 +57,7 @@ Client:
 Infrastructure:
 - Add a CI/CD pipeline with automatic deployment
 - Add proper key management for the database
+- Messy env variable configuration. Should be cleaned up and only have one source of truth 
 
 ### Time Spent
 - 1.5 hours: Backend, Client, Database
