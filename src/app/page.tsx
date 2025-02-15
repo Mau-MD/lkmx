@@ -1,3 +1,4 @@
+import { Toaster } from "@/client/components/ui/toaster";
 import { UserForm } from "@/client/components/user/user-form";
 import { UserTable } from "@/client/components/user/user-table";
 import { getUsers } from "@/client/handlers/userapi";
@@ -16,6 +17,7 @@ export default async function Home() {
         <UserForm />
       </div>
       <UserTable users={users} />
+      <Toaster />
     </div>
   );
 }

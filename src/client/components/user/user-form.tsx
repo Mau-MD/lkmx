@@ -15,6 +15,7 @@ import { z } from "zod";
 import { Input } from "@/client/components/ui/input";
 import { Button } from "@/client/components/ui/button";
 import { createUser } from "@/client/handlers/userapi";
+import { useToast } from "@/client/hooks/use-toast";
 
 // TODO: Move to shared client and server schema
 const formSchema = z.object({
@@ -24,6 +25,8 @@ const formSchema = z.object({
 });
 
 export const UserForm = () => {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,9 +43,20 @@ export const UserForm = () => {
       email: values.email,
     });
     if (error) {
+      toast({
+        title: "Error creating user",
+        description: error,
+        variant: "destructive",
+      });
       console.error(error);
+      return;
     }
     form.reset();
+    toast({
+      title: "User created",
+      description:
+        "User created successfully. Please refresh the page to see the new user.",
+    });
   }
 
   return (

@@ -12,13 +12,28 @@ import {
 } from "@/client/components/ui/table";
 import { UserOutput } from "@/shared/types";
 import { deleteUser } from "@/client/handlers/userapi";
+import { useToast } from "@/client/hooks/use-toast";
 
 export const UserTable = ({ users }: { users: UserOutput[] }) => {
+  const { toast } = useToast();
+
   const handleDelete = async (id: number) => {
     const [, error] = await deleteUser(id.toString());
     if (error) {
+      toast({
+        title: "Error deleting user",
+        description: error,
+        variant: "destructive",
+      });
       console.error(error);
+      return;
     }
+
+    toast({
+      title: "User deleted",
+      description:
+        "User deleted successfully. Please refresh the page to see the changes.",
+    });
   };
 
   return (
