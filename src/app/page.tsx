@@ -8,8 +8,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/client/components/ui/table";
+import { SERVER_URL } from "@/shared/config";
+import { UserOutput } from "@/shared/types";
 
-export default function Home() {
+async function getUsers() {
+  const res = await fetch(`${SERVER_URL}/api/users`);
+  const data = (await res.json()) as UserOutput[];
+  return data;
+}
+
+export default async function Home() {
+  const users = await getUsers();
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold">User Management System</h1>
@@ -25,16 +35,18 @@ export default function Home() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">0</TableCell>
-            <TableCell>Test</TableCell>
-            <TableCell>20</TableCell>
-            <TableCell>test@test.com</TableCell>
-            <TableCell className="flex gap-2 justify-end">
-              <Button variant="outline">Edit</Button>
-              <Button variant="destructive">Delete</Button>
-            </TableCell>
-          </TableRow>
+          {users.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell className="font-medium">{user.id}</TableCell>
+              <TableCell>{user.name}</TableCell>
+              <TableCell>{user.age}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell className="flex gap-2 justify-end">
+                <Button variant="outline">Edit</Button>
+                <Button variant="destructive">Delete</Button>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </div>
