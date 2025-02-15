@@ -1,11 +1,18 @@
 import { SERVER_URL } from "@/shared/config";
-import { UserInput, UserOutput } from "@/shared/types";
+import { UserAnalytics, UserInput, UserOutput } from "@/shared/types";
 import { Result, withErrorHandling } from "./api";
 
 export async function getUsers(): Promise<Result<UserOutput[]>> {
   return await withErrorHandling(async () => {
     const res = await fetch(`${SERVER_URL}/api/users`);
     return (await res.json()) as UserOutput[];
+  });
+}
+
+export async function getUserAnalytics(): Promise<Result<UserAnalytics>> {
+  return await withErrorHandling(async () => {
+    const res = await fetch(`${SERVER_URL}/api/users/analytics`);
+    return (await res.json()) as UserAnalytics;
   });
 }
 
