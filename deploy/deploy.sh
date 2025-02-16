@@ -2,9 +2,9 @@
 PROJECT_ID="lkmx-451021"
 REGION="us-central1"
 
-POSTGRES_USER="postgres"
-POSTGRES_PASSWORD="postgres"
-POSTGRES_DATABASE="postgres"
+POSTGRES_USER=$(cd infra && terraform output -raw postgres_user)
+POSTGRES_PASSWORD=$(cd infra && terraform output -raw postgres_password)
+POSTGRES_DATABASE=$(cd infra && terraform output -raw postgres_database)
 
 echo "Migrating remote database..."
 DATABASE_DNS=$(cd infra && terraform output -raw postgres_public_ip)

@@ -16,9 +16,8 @@
  3. Go to https://console.developers.google.com/apis/api/run.googleapis.com/overview?project=<project-id> and enable the Cloud Run API
  4. Replace the `project_id` and `region` in the `infra/variables.tf` file with your project id and region
  5. Change `$PROJECT_ID` and `$REGION` to your project id and region in the `deploy/deploy.sh` file
- 6. Run `cd infra && terraform init && terraform apply` to deploy the infrastructure
- 8. If you changed the default username, password, or database name, change them in the `infra/variables.tf` file and in the `deploy/deploy.sh` file
- 9. Run `deploy/deploy.sh` to deploy the services
+ 6. Run `cd infra && terraform init && terraform apply -var="postgres_password=<password>"` to deploy the infrastructure
+ 7. Run `deploy/deploy.sh` to deploy the services
 
  ## Project Summary
  The project is a simple user management system that allows you to create, read, update and delete users. 

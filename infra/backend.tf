@@ -26,9 +26,10 @@ resource "google_sql_database_instance" "lkmx_postgres" {
 
 
 resource "google_sql_user" "users" {
-  name     = var.postgres_user
-  instance = google_sql_database_instance.lkmx_postgres.name
-  password = var.postgres_password
+  name            = var.postgres_user
+  instance        = google_sql_database_instance.lkmx_postgres.name
+  password        = var.postgres_password
+  deletion_policy = "ABANDON"
 }
 
 resource "google_cloud_run_v2_service" "lkmx_service" {
@@ -64,4 +65,16 @@ output "postgres_public_ip" {
 
 output "lkmx_service_url" {
   value = google_cloud_run_v2_service.lkmx_service.urls[0]
+}
+
+output "postgres_user" {
+  value = var.postgres_user
+}
+
+output "postgres_password" {
+  value = var.postgres_password
+}
+
+output "postgres_database" {
+  value = var.postgres_database
 }
