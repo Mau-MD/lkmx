@@ -3,7 +3,7 @@
 ## Deployed Demo 
 > Note, in order to save costs, the project will be taken down after February 18th using `terraform destroy`. If needed, please email me to get the project back up.
 
-[https://lkmx-service-574820729926.us-central1.run.app](https://lkmx-service-574820729926.us-central1.run.app)
+[https://lkmx-service-574820729926.us-central1.run.app](https://lkmx-service-574820729926.us-central1.run.app/)
 
 ## Local Build
  1. Clone the repository `git clone https://github.com/Mau-MD/lkmx`
