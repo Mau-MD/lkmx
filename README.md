@@ -8,7 +8,8 @@
 ## Local Build
  1. Clone the repository `git clone https://github.com/Mau-MD/lkmx`
  2. Rename the `.env.example` file to `.env` and set the environment variables
- 3. Run `deploy/start.sh` to start the services
+ 3. Run `docker-compose up -d` to start the database 
+ 4. Run `npm run dev` so start the development server
 
  ## Deploy to GCP
  1. Create a new project in GCP
