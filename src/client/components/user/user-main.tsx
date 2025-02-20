@@ -11,8 +11,8 @@ import { useState } from "react";
 
 // TODO: Move to shared client and server schema
 export const formSchema = z.object({
-  name: z.string().min(2).max(50),
-  age: z.coerce.number().min(1).max(100),
+  name: z.string().min(2).max(50).trim(),
+  age: z.coerce.number().min(1).max(100).int("Age must be an integer"),
   email: z.string().email("Invalid email address"),
 });
 
