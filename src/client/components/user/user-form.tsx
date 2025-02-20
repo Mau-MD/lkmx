@@ -44,19 +44,19 @@ export const UserForm = ({
 
     if (error) {
       toast({
-        title: "Error creating user",
+        title: `Error ${isEditing ? "updating" : "creating"} user`,
         description: error,
         variant: "destructive",
       });
-      console.error(error);
       return;
     }
 
     form.reset();
     toast({
-      title: "User created",
-      description:
-        "User created successfully. Please refresh the page to see the new user.",
+      title: `User ${isEditing ? "updated" : "created"}`,
+      description: `User ${
+        isEditing ? "updated" : "created"
+      } successfully. Please refresh the page to see the new user.`,
     });
   }
 

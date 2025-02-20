@@ -31,7 +31,6 @@ export const UserTable = ({
         description: error,
         variant: "destructive",
       });
-      console.error(error);
       return;
     }
 
