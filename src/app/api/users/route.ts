@@ -17,7 +17,14 @@ export const POST = async (request: Request) => {
   if (!body.name || !body.age || !body.email) {
     return NextResponse.json(
       { error: "Missing required fields" },
-      { status: 400 },
+      { status: 400 }
+    );
+  }
+
+  if (body.name.trim() === "") {
+    return NextResponse.json(
+      { error: "Name cannot be empty" },
+      { status: 400 }
     );
   }
 
@@ -31,7 +38,7 @@ export const POST = async (request: Request) => {
     console.error(error);
     return NextResponse.json(
       { error: "Failed to create user" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 

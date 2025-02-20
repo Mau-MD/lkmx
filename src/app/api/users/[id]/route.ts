@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const DELETE = async (
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   const id = (await params).id;
   if (!id) {
@@ -22,14 +22,14 @@ export const DELETE = async (
     console.error(error);
     return NextResponse.json(
       { error: "Failed to delete user" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 };
 
 export const PUT = async (
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   const id = (await params).id;
   if (!id) {
@@ -40,7 +40,14 @@ export const PUT = async (
   if (!body.name || !body.age || !body.email) {
     return NextResponse.json(
       { error: "Missing required fields" },
-      { status: 400 },
+      { status: 400 }
+    );
+  }
+
+  if (body.name.trim() === "") {
+    return NextResponse.json(
+      { error: "Name cannot be empty" },
+      { status: 400 }
     );
   }
 
@@ -56,7 +63,7 @@ export const PUT = async (
     console.error(error);
     return NextResponse.json(
       { error: "Failed to update user" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 };
